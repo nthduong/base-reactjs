@@ -1,78 +1,54 @@
-import { Space, Table, Tag } from "antd";
+import { Table } from "antd";
+import { useState } from "react";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import UpdateUserModal from "./update.user.modal";
 
-const UserTable = () => {
+const UserTable = (props) => {
+    const { dataUser } = props;
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const data = [
+        {
+            _id: "1",
+            fullName: "duong",
+            email: "abc@gmail.com",
+        },
+    ];
     const columns = [
         {
-            title: "Name",
-            dataIndex: "name",
-            key: "name",
-            render: (text) => <a>{text}</a>,
-        },
-        {
-            title: "Age",
-            dataIndex: "age",
-            key: "age",
-        },
-        {
-            title: "Address",
-            dataIndex: "address",
-            key: "address",
-        },
-        {
-            title: "Tags",
-            key: "tags",
-            dataIndex: "tags",
-            render: (_, { tags }) => (
+            title: "Id",
+            dataIndex: "_id",
+            render: (_, record) => (
                 <>
-                    {tags.map((tag) => {
-                        let color = tag.length > 5 ? "geekblue" : "green";
-                        if (tag === "loser") {
-                            color = "volcano";
-                        }
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
+                    <a href="#">{record._id}</a>
                 </>
             ),
+        },
+        {
+            title: "Full Name",
+            dataIndex: "fullName",
+        },
+        {
+            title: "Email",
+            dataIndex: "email",
         },
         {
             title: "Action",
             key: "action",
             render: (_, record) => (
-                <Space size="middle">
-                    <a>Invite {record.name}</a>
-                    <a>Delete</a>
-                </Space>
+                <div style={{ display: "flex", gap: "10px" }}>
+                    <EditOutlined onClick={() => setIsModalOpen(true)} />
+                    <DeleteOutlined />
+                </div>
             ),
         },
     ];
-    const data = [
-        {
-            key: "1",
-            name: "John Brown",
-            age: 32,
-            address: "New York No. 1 Lake Park",
-            tags: ["nice", "developer"],
-        },
-        {
-            key: "2",
-            name: "Jim Green",
-            age: 42,
-            address: "London No. 1 Lake Park",
-            tags: ["loser"],
-        },
-        {
-            key: "3",
-            name: "Joe Black",
-            age: 32,
-            address: "Sydney No. 1 Lake Park",
-            tags: ["cool", "teacher"],
-        },
-    ];
-    return <Table columns={columns} dataSource={data} />;
+
+    return (
+        <>
+            <Table columns={columns} dataSource={data} />;
+            <UpdateUserModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+        </>
+    );
 };
 
 export default UserTable;

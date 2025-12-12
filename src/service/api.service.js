@@ -8,4 +8,9 @@ const CreateUser = (fullName, email, password, phone) => {
     return axios.post(URL_BACKEND, data);
 };
 
-export { CreateUser };
+const fetchAllUsers = () => {
+    const URL_BACKEND = "/api/v1/user";
+    return axios.get(URL_BACKEND);
+};
+
+export { CreateUser, fetchAllUsers };

@@ -1,12 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
-import LoginPage from "./assets/page/login.jsx";
-import RegisterPage from "./assets/page/register.jsx";
-import UsersPage from "./assets/page/users.jsx";
-import BookPage from "./assets/page/book.jsx";
+import LoginPage from "./page/login.jsx"
+import RegisterPage from "./page/register.jsx";
+import UsersPage from "./page/users.jsx";
+import BookPage from "./page/book.jsx";
 import TodoApp from "./components/todo/TodoApp.jsx";
-import ErrorPage from "./assets/page/error.jsx";
+import ErrorPage from "./page/error.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-    <StrictMode>
+    // <StrictMode>
         <RouterProvider router={router} />
-    </StrictMode>
+    // </StrictMode>
 );
