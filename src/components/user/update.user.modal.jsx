@@ -21,8 +21,6 @@ const UpdateUserModal = (props) => {
         setFullName("");
         setEmail("");
         setDataUpdate(null);
-        console.log(dataUpdate);
-        
     };
 
     return (
