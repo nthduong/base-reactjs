@@ -1,16 +1,28 @@
-import { useState } from "react";
-import { Button, Input, Modal } from "antd";
+import { useEffect, useState } from "react";
+import { Input, Modal } from "antd";
 const UpdateUserModal = (props) => {
-    const {isModalOpen, setIsModalOpen} = props
+    const { isModalOpen, setIsModalOpen, dataUpdate, setDataUpdate } = props;
 
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
 
+    useEffect(() => {
+        if (dataUpdate) {            
+            setFullName(dataUpdate.fullName);
+            setEmail(dataUpdate.email);
+        } 
+    }, [dataUpdate]);
+
     const editUser = () => {
         console.log();
     };
-     const closeModal = () => {
+    const closeModal = () => {
         setIsModalOpen(false);
+        setFullName("");
+        setEmail("");
+        setDataUpdate(null);
+        console.log(dataUpdate);
+        
     };
 
     return (
