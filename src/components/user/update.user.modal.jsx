@@ -8,9 +8,6 @@ const UpdateUserModal = (props) => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
 
-    console.log(dataUpdate);
-    
-
     useEffect(() => {
         if (dataUpdate) {
             setFullName(dataUpdate.fullName);

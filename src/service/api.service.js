@@ -35,11 +35,16 @@ const handleUploadFile = (file,folder) => {
         },
     };
     const bodyFormData = new FormData()
-    FormData.append("fileImg",file)
-
-
+    bodyFormData.append("fileImg", file);
 
     return axios.post(URL_BACKEND, bodyFormData, config);
 };
 
-export { createUser, fetchAllUsers, updateUser, deleteUser, handleUploadFile };
+const updateAvatar = (_id, fullName, phone, avatar) => {
+    const URL_BACKEND = "/api/v1/user";
+
+    const data = { _id, fullName, phone, avatar };
+    return axios.put(URL_BACKEND, data);
+};
+
+export { createUser, fetchAllUsers, updateUser, deleteUser, handleUploadFile, updateAvatar };
