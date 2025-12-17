@@ -1,15 +1,29 @@
-import { Table } from "antd";
+import { Table, message, Popconfirm, notification } from "antd";
 import { useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import UpdateUserModal from "./update.user.modal";
 import ViewUserDetail from "./view.user.detail";
+import { deleteUser } from "../../service/api.service";
 
 const UserTable = (props) => {
-    const { dataUser } = props;
+    const { dataUser, loadUsers } = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null);
     const [isDrawOpen, setIsDrawOpen] = useState(false);
     const [dataDetailUser, setDataDetailUser] = useState(null);
+
+    const handleDeleteUser = async (userId) => {
+        const res = await deleteUser(userId);
+        if (res && res.data) {
+            message.success("Xóa user thành công");
+            loadUsers();
+        } else {
+            notification.error({
+                message: "Có lỗi xảy ra",
+                description: res.message,
+            });
+        }
+    };
 
     const columns = [
         {
@@ -48,7 +62,16 @@ const UserTable = (props) => {
                             setIsModalOpen(true);
                         }}
                     />
-                    <DeleteOutlined />
+
+                    <Popconfirm
+                        title="Delete the user"
+                        description="Are you sure to delete this user?"
+                        onConfirm={() => {
+                            handleDeleteUser(record._id);
+                        }}
+                    >
+                        <DeleteOutlined />
+                    </Popconfirm>
                 </div>
             ),
         },
@@ -56,12 +79,13 @@ const UserTable = (props) => {
 
     return (
         <>
-            <Table columns={columns} dataSource={dataUser} />;
+            <Table columns={columns} dataSource={dataUser} />
             <UpdateUserModal
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
+                loadUsers={loadUsers}
             />
             <ViewUserDetail
                 isDrawOpen={isDrawOpen}

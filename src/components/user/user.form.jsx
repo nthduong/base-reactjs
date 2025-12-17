@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Input, notification, Modal } from "antd";
-import { CreateUser } from "../../service/api.service";
+import { createUser } from "../../service/api.service";
 
 const UserForm = (props) => {
     const {loadUsers} = props
@@ -12,7 +12,7 @@ const UserForm = (props) => {
     const [phone, setPhone] = useState("");
 
     const onSubmit = async () => {
-        const res = await CreateUser(fullName, email, password, phone);
+        const res = await createUser(fullName, email, password, phone);
         if (res.data) {
             notification.success({
                 message: "User created successfully",
