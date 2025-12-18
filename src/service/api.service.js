@@ -8,8 +8,8 @@ const createUser = (fullName, email, password, phone) => {
     return axios.post(URL_BACKEND, data);
 };
 
-const fetchAllUsers = () => {
-    const URL_BACKEND = "/api/v1/user";
+const fetchAllUsers = (currentPage,pageSize) => {
+    const URL_BACKEND = `/api/v1/user?current=${currentPage}&pageSize=${pageSize}`;
     return axios.get(URL_BACKEND);
 };
 
@@ -46,5 +46,10 @@ const updateAvatar = (_id, fullName, phone, avatar) => {
     const data = { _id, fullName, phone, avatar };
     return axios.put(URL_BACKEND, data);
 };
+const registerUser = (data) => {
+    const URL_BACKEND = "/api/v1/user/register";
 
-export { createUser, fetchAllUsers, updateUser, deleteUser, handleUploadFile, updateAvatar };
+    return axios.post(URL_BACKEND, data);
+};
+
+export { createUser, fetchAllUsers, updateUser, deleteUser, handleUploadFile, updateAvatar, registerUser };

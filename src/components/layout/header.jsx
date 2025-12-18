@@ -18,6 +18,14 @@ const items = [
         key: "book",
         icon: <SettingOutlined />,
     },
+    {
+        label: <Link to='/register'>register</Link>,
+        key: "register",
+    },
+    {
+        label: <Link to='/login'>login</Link>,
+        key: "login",
+    },
 ];
 const Header = () => {
     const [current, setCurrent] = useState("");

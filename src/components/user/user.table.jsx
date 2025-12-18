@@ -6,7 +6,7 @@ import ViewUserDetail from "./view.user.detail";
 import { deleteUser } from "../../service/api.service";
 
 const UserTable = (props) => {
-    const { dataUser, loadUsers } = props;
+    const { dataUser, loadUsers, currenPage, pageSize, totalPage, setCurrenPage, setPageSize } = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null);
     const [isDrawOpen, setIsDrawOpen] = useState(false);
@@ -26,6 +26,14 @@ const UserTable = (props) => {
     };
 
     const columns = [
+        {
+            title: "STT",
+            render: (_, record, index) => (
+                <>
+                    <p>{(index + 1) + ((currenPage-1) * pageSize)}</p>
+                </>
+            ),
+        },
         {
             title: "Id",
             dataIndex: "_id",
@@ -77,9 +85,25 @@ const UserTable = (props) => {
         },
     ];
 
+    const onChange = (pagination, filters, sorter, extra) => {
+        setCurrenPage(+pagination.current)
+        setPageSize(+pagination.pageSize)
+    };
+
     return (
         <>
-            <Table columns={columns} dataSource={dataUser} />
+            <Table
+                columns={columns}
+                dataSource={dataUser}
+                pagination={{
+                    current: currenPage,
+                    pageSize: pageSize,
+                    total: totalPage,
+                    showSizeChanger: true,
+                    pageSizeOptions: ["5", "10", "20"],
+                }}
+                onChange={onChange}
+            />
             <UpdateUserModal
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
